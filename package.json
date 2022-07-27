@@ -18,6 +18,8 @@
     "webpack": "^4.46.0"
   },
   "devDependencies": {
-    "@nuxtjs/vuetify": "^1.12.3"
+    "@nuxtjs/vuetify": "^1.12.3",
+    "eslint": "^8.20.0",
+    "eslint-plugin-vue": "^9.3.0"
   }
 }
