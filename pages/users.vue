@@ -20,5 +20,7 @@ export default {
       this.$router.push(`/users/${this.userId}`);
     },
   },
+  // used by nuxt to use layout other than default
+  layout: "users",
 };
 </script>
