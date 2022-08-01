@@ -43,6 +43,7 @@
     </v-app-bar>
     <v-main>
       <v-container>
+        <Header />
         <Nuxt />
       </v-container>
     </v-main>
@@ -63,6 +64,8 @@
 </template>
 
 <script>
+import Header from "@/components/Header.vue";
+
 export default {
   name: "DefaultLayout",
   data() {
@@ -88,5 +91,6 @@ export default {
       title: "Vuetify.js",
     };
   },
+  components: { Header },
 };
 </script>
