@@ -1,6 +1,7 @@
 <template>
   <v-row justify="center" align="center">
     <v-col cols="12" sm="8" md="6">
+      <Header />
       <v-card class="logo py-4 d-flex justify-center">
         <NuxtLogo />
         <VuetifyLogo />
@@ -27,7 +28,9 @@
 </template>
 
 <script>
+import Header from "~/components/Header.vue";
 export default {
   name: "IndexPage",
+  components: { Header },
 };
 </script>
