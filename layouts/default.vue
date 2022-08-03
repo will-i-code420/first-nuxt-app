@@ -64,8 +64,6 @@
 </template>
 
 <script>
-import Header from "@/components/Header.vue";
-
 export default {
   name: "DefaultLayout",
   data() {
@@ -90,7 +88,12 @@ export default {
       rightDrawer: false,
       title: "Vuetify.js",
     };
-  },
-  components: { Header },
+  }
 };
 </script>
+
+<style>
+  html {
+    font-family: 'Roboto', sans-serif;
+  }
+</style>
