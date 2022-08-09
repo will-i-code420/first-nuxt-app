@@ -1,6 +1,7 @@
 <template lang="html">
   <v-app-bar app>
-    <v-toolbar-title>{{title}}</v-toolbar-title>
+    <v-toolbar-title><v-btn color="grey"
+        plain text nuxt to="/">{{title}}</v-btn></v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn class="ma-2"  nuxt to="/posts">
       <span>All Posts</span>
@@ -11,6 +12,12 @@
       <span>About</span>
       <v-icon right aria-label="About" role="img" aria-hidden="false">
         mdi-information
+      </v-icon>
+    </v-btn>
+    <v-btn class="ma-2" nuxt to="/admin">
+      <span>Admin</span>
+      <v-icon right aria-label="Admin" role="img" aria-hidden="false">
+        mdi-cog
       </v-icon>
     </v-btn>
     <v-form>

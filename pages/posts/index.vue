@@ -1,17 +1,16 @@
 <template lang="html">
+  <v-container>
   <v-row justify="center" align="center">
     <v-col cols="16" sm="12" md="10" class="posts-page">
-      <v-card class="logo py-4 d-flex justify-center">
-
-      </v-card>
-      <v-card>
-        <v-card-text>
-        </v-card-text>
-        <v-card-actions>
-        </v-card-actions>
-      </v-card>
+      <v-card class="mb-5">
+        <v-card-title class="headline justify-center">
+          Latest Posts
+        </v-card-title>
+        <PostList />
+    </v-card>
     </v-col>
   </v-row>
+</v-container>
 </template>
 
 <script>

@@ -10,6 +10,9 @@
       <v-btn color="info" text nuxt :to="`/posts/${post.id}`">
         View
       </v-btn>
+      <v-btn v-if="admin" color="error" text nuxt :to="`/admin/${post.id}`">
+        Edit
+      </v-btn>
     </template>
   </BaseCard>
 </template>
@@ -20,6 +23,11 @@ export default {
     post: {
       type: Object,
       required: true
+    },
+    admin: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   }
 }
