@@ -31,7 +31,8 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
     '~/components',
-    { path: '~/components/ui', extensions: ['vue'] }
+    { path: '~/components/ui', extensions: ['vue'] },
+    { path: '~/components/posts', extensions: ['vue'] }
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
