@@ -9,12 +9,12 @@
         </v-card-title>
         <PostList admin />
         <v-card-actions class="my-3 justify-center">
-          <v-btn text nuxt to="/admin/new-post">
+          <BaseButton text nuxt to="/admin/new-post">
             <span>Create New Post</span>
             <v-icon right aria-label="New Post" role="img" aria-hidden="false">
               mdi-newspaper
             </v-icon>
-          </v-btn>
+          </BaseButton>
         </v-card-actions>
     </v-card>
     </v-col>

@@ -7,12 +7,12 @@
     </v-img>
     {{post.description}}
     <template #actions>
-      <v-btn color="info" text nuxt :to="{ path: `/posts/${post.id}`, params: {post} }">
+      <BaseButton color="info" text nuxt :to="{ path: `/posts/${post.id}`, params: {post} }">
         View
-      </v-btn>
-      <v-btn v-if="admin" color="error" text nuxt :to="{ path: `/admin/${post.id}`, params: {post} }">
+      </BaseButton>
+      <BaseButton v-if="admin" color="error" text nuxt :to="{ path: `/admin/${post.id}`, params: {post} }">
         Edit
-      </v-btn>
+      </BaseButton>
     </template>
   </BaseCard>
 </template>

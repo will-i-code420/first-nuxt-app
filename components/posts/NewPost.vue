@@ -16,9 +16,9 @@
       label="Post"
       v-model="post"
     ></v-textarea>
-    <v-btn color="primary" @click="submitPost">
+    <BaseButton color="primary" @click="submitPost">
       Submit Post
-    </v-btn>
+    </BaseButton>
         </v-col>
       </v-row>
     </v-container>
