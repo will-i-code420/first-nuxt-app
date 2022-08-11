@@ -2,7 +2,7 @@
 <v-container>
   <v-row justify="center" align="center">
     <v-col cols="16" sm="12" md="10" class="new-post-page">
-      <NewPost />
+      <PostForm />
     </v-col>
   </v-row>
 </v-container>

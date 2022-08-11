@@ -5,12 +5,12 @@
         {{post.title}}
       </v-card-title>
     </v-img>
-    {{post.description}}
+    {{post.content}}
     <template #actions>
-      <BaseButton color="info" text nuxt :to="{ path: `/posts/${post.id}`, params: {post} }">
+      <BaseButton color="info" text nuxt :to="{ path: `/posts/${post.id}`}">
         View
       </BaseButton>
-      <BaseButton v-if="admin" color="error" text nuxt :to="{ path: `/admin/${post.id}`, params: {post} }">
+      <BaseButton v-if="admin" color="error" text nuxt :to="{ path: `/admin/${post.id}`}">
         Edit
       </BaseButton>
     </template>
