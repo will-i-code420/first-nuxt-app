@@ -1,13 +1,21 @@
 <template lang="html">
   <v-container>
   <v-row justify="center" align="center">
-    <v-col cols="16" sm="12" md="10" class="posts-page">
+    <v-col cols="16" sm="12" md="10" class="admin-page">
       <h1 class="text-center">Admin Page</h1>
       <v-card class="mb-5">
         <v-card-title class="headline justify-center">
-          Latest Posts
+          Existing Posts
         </v-card-title>
         <PostList admin />
+        <v-card-actions class="my-3 justify-center">
+          <v-btn text nuxt to="/admin/new-post">
+            <span>Create New Post</span>
+            <v-icon right aria-label="New Post" role="img" aria-hidden="false">
+              mdi-newspaper
+            </v-icon>
+          </v-btn>
+        </v-card-actions>
     </v-card>
     </v-col>
   </v-row>
