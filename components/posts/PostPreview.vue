@@ -26,8 +26,7 @@ export default {
     },
     admin: {
       type: Boolean,
-      required: false,
-      default: false
+      required: true
     }
   }
 }
