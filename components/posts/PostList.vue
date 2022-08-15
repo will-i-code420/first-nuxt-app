@@ -11,7 +11,7 @@ export default {
   props: {
     admin: {
       type: Boolean,
-      required: true,
+      required: false,
       default: false
     },
     posts: {
