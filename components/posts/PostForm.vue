@@ -1,28 +1,30 @@
 <template lang="html">
-  <v-form>
+  <v-form @submit.prevent="submitPost">
     <v-container>
       <v-row>
         <v-col>
-          <v-text-field v-model="newPost.title" required>
+          <v-text-field v-model="postForm.title" required label="Post Title">
           </v-text-field>
-          <v-text-field v-model="newPost.author" required>
+          <v-text-field v-model="postForm.author" required label="Author">
           </v-text-field>
           <v-file-input
             inputType="file"
-            label="Upload image"
+            label="Upload image or add link below"
             filled
             prepend-icon="mdi-camera"
             >
           </v-file-input>
+          <v-text-field v-model="postForm.img" label="Image Url">
+          </v-text-field>
           <v-textarea
             inputType="area"
             clearable
             clear-icon="mdi-close-circle"
-            label="Post"
-            v-model="newPost.content"
+            label="Post Content"
+            v-model="postForm.content"
           >
           </v-textarea>
-    <BaseButton color="primary" @click="submitPost">
+    <BaseButton color="primary" type="submit">
       Submit Post
     </BaseButton>
     <BaseButton color="error" @click="$router.push('/admin')">
@@ -44,22 +46,20 @@ export default {
   },
   data () {
     return {
-      newPost: this.post ? { ...this.post } : {
+      postForm: this.post ? { ...this.post } : {
         title: '',
         author: '',
-        content: ''
+        content: '',
+        img: null
       }
     }
   },
   methods: {
     submitPost () {
       const id = Math.random().toString(16).slice(2)
-      const newPost = {
-        id,
-        title: this.title,
-        post:  this.post
-      }
-      console.log(newPost)
+      const date = new Date()
+      const completeForm = {id,date,...this.postForm}
+      this.$emit('submit-post', completeForm)
     }
   }
 }

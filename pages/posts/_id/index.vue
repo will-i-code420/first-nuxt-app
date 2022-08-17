@@ -7,7 +7,7 @@
         </v-img>
       </v-card>
       <v-card>
-        <v-card-subtitle>{{loadedPost.author}} - Date: {{new Date()}}</v-card-subtitle>
+        <v-card-subtitle>{{loadedPost.author}} - Date: {{loadedPost.date}}</v-card-subtitle>
         <v-card-text>{{loadedPost.content}}</v-card-text>
         <v-card-actions>
         </v-card-actions>
