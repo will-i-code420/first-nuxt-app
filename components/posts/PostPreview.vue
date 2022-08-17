@@ -5,7 +5,7 @@
         {{post.title}}
       </v-card-title>
     </v-img>
-    {{post.content}}
+    {{post.content.slice(0,17)}}...
     <template #actions>
       <BaseButton color="info" text nuxt :to="{ path: `/posts/${post.id}`}">
         View

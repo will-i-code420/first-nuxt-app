@@ -56,9 +56,8 @@ export default {
   },
   methods: {
     submitPost () {
-      const id = Math.random().toString(16).slice(2)
       const date = new Date()
-      const completeForm = {id,date,...this.postForm}
+      const completeForm = { date, ...this.postForm }
       this.$emit('submit-post', completeForm)
     }
   }

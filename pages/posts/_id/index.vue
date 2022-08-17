@@ -23,7 +23,7 @@ export default {
     setTimeout(() => {
       cb(null,{
         loadedPost: {
-          id: 1, title: 'New Vue News', author: 'Bob Dole', content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', img: 'https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg'
+          id: 1, title: 'New Vue News', date: '2022-08-17T23:06:53.539Z', author: 'Bob Dole', content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', img: 'https://static.pexels.com/photos/270348/pexels-photo-270348.jpeg'
         }
       })
     }, 1000)
