@@ -6,7 +6,7 @@
     </v-img>
   </v-card>
   <v-card>
-    <v-card-subtitle>{{post.author}} - Date: {{post.date}}</v-card-subtitle>
+    <v-card-subtitle>{{post.author}} - Date: {{post.date | date}}</v-card-subtitle>
     <v-card-text>{{post.content}}</v-card-text>
     <v-card-actions>
     </v-card-actions>
