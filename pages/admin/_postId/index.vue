@@ -15,17 +15,14 @@ export default {
   asyncData(context) {
     return axios.get(`https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com/posts/${context.params.postId}.json`).then(res => {
       return {
-        loadedPost: res.data
+        loadedPost: {id: context.params.postId, ...res.data}
       }
     }).catch(e => context.error(e))
   },
   methods: {
     editPost(postData) {
-      axios.put(`https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com/posts/${this.$route.params.postId}.json`, postData).then(res => {
-        console.log(res)
+      this.$store.disptach('editPost', postData).then(() => {
         this.$router.push('/admin')
-      }).catch(e => {
-        console.log(e)
       })
     }
   }

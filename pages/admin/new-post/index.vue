@@ -13,11 +13,8 @@ import axios from 'axios'
 export default {
   methods: {
     savePost(postData) {
-      axios.post('https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com/posts.json', postData).then(res => {
-        console.log(res)
+      this.$store.disptach('addPost', postData).then(() => {
         this.$router.push('/admin')
-      }).catch(e => {
-        console.log(e)
       })
     }
   }
