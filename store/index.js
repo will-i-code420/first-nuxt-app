@@ -20,10 +20,10 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit({commit}, context) {
-        return axios.get(`${process.env.baseUrl}/posts.json`).then(res => {
+        return context.app.$axios.$get(`/posts.json`).then(data => {
           const posts = []
-          for (const key in res.data) {
-            posts.push({ id: key, ...res.data[key] })
+          for (const key in data) {
+            posts.push({ id: key, ...data[key] })
           }
           commit('setPosts', posts)
         }).catch(e => context.error(e))

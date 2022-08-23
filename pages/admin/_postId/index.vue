@@ -9,13 +9,11 @@
 </template>
 
 <script>
-import axios from 'axios'
-
 export default {
   asyncData(context) {
-    return axios.get(`${process.env.baseUrl}/posts/${context.params.postId}.json`).then(res => {
+    return this.$axios.$get(`/posts/${context.params.postId}.json`).then(data => {
       return {
-        loadedPost: {id: context.params.postId, ...res.data}
+        loadedPost: {id: context.params.postId, ...data}
       }
     }).catch(e => context.error(e))
   },
