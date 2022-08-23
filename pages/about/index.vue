@@ -12,7 +12,15 @@
 
 <script>
 export default {
-  name: "AboutPage"
+  name: "AboutPage",
+  head() {
+    return {
+      title: 'About Tech News Blog',
+      meta: [
+        { hid: 'description', name: 'description', content: 'All about Tech News Blog located in Tucson, AZ' }
+      ]
+    }
+  }
 }
 </script>
 

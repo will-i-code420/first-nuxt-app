@@ -16,6 +16,14 @@
 <script>
 export default {
   name: "PostsPage",
+  head() {
+    return {
+      title: 'Tech News Latest posts',
+      meta: [
+        { hid: 'description', name: 'description', content: 'List of all the current tech blogs posted recently' }
+      ]
+    }
+  },
   computed: {
     loadedPosts() {
       return this.$store.getters.loadedPosts

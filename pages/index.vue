@@ -17,6 +17,14 @@
 <script>
 export default {
   name: "IndexPage",
+  head() {
+    return {
+      title: 'Tech News Blog',
+      meta: [
+        { hid: 'description', name: 'description', content: 'Your #1 source for Tech News coming out of Tucson, AZ' }
+      ]
+    }
+  },
   computed: {
     loadedPosts() {
       return this.$store.getters.loadedPosts
