@@ -20,6 +20,8 @@ export default {
     ]
   },
 
+  loading: {color: colors.blue.darken2, height: '5px'},
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
@@ -44,6 +46,10 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
   ],
+
+  env: {
+    baseUrl: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com'
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

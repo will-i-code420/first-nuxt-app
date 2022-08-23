@@ -20,7 +20,7 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit({commit}, context) {
-        return axios.get('https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com/posts.json').then(res => {
+        return axios.get(`${process.env.baseUrl}/posts.json`).then(res => {
           const posts = []
           for (const key in res.data) {
             posts.push({ id: key, ...res.data[key] })
@@ -32,7 +32,7 @@ const createStore = () => {
         commit('setPosts', posts)
       },
       addPost({commit}, postData) {
-          return axios.post('https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com/posts.json', postData).then(res => {
+          return axios.post(`${process.env.baseUrl}/posts.json`, postData).then(res => {
             console.log(res)
             commit('addPost', {id: res.data.name, ...postData})
           }).catch(e => {
@@ -40,7 +40,7 @@ const createStore = () => {
           })
       },
       editPost({commit}, postData) {
-        return axios.put(`https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com/posts/${postData.id}.json`, postData).then(res => {
+        return axios.put(`${process.env.baseUrl}/posts/${postData.id}.json`, postData).then(res => {
           console.log(res)
           commit('editPost', postData)
         }).catch(e => {
