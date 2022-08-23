@@ -51,6 +51,15 @@ export default {
     baseUrl: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com'
   },
 
+  router: {
+    extendRoutes(routes,resolve) {
+      routes.push({
+        path: '*',
+        component: resolve(__dirname, 'pages/index.vue')
+      })
+    }
+  },
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
