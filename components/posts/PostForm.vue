@@ -24,8 +24,11 @@
             v-model="postForm.content"
           >
           </v-textarea>
-    <BaseButton color="primary" type="submit">
+    <BaseButton v-if="!edit" color="primary" type="submit">
       Submit Post
+    </BaseButton>
+    <BaseButton v-else color="primary" @click="editPost">
+      Edit Post
     </BaseButton>
     <BaseButton color="error" @click="$router.push('/admin')">
       Cancel
@@ -42,6 +45,11 @@ export default {
     post: {
       type: Object,
       required: false
+    },
+    edit: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -59,6 +67,9 @@ export default {
       const date = new Date()
       const completeForm = { date, ...this.postForm }
       this.$emit('submit-post', completeForm)
+    },
+    editPost() {
+      this.$emit('edit-post', this.postForm)
     }
   }
 }
