@@ -53,6 +53,9 @@ export default {
     baseURL: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com',
     credentials: false
   },
+  router: {
+    middleware: 'log'
+  },
 
   env: {
     baseUrl: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com'

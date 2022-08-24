@@ -16,6 +16,7 @@
 <script>
 export default {
   name: "PostsPage",
+  middleware: 'log',
   head() {
     return {
       title: 'Tech News Latest posts',

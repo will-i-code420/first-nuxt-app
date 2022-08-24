@@ -18,6 +18,7 @@ import Footer from '~/components/navigation/Footer.vue'
 
 export default {
   name: "DefaultLayout",
+  middleware: 'log',
   components: {
     TopNav,
     Footer
