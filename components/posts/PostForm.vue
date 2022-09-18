@@ -41,6 +41,7 @@
 
 <script>
 export default {
+  emits: ['submit-post', 'edit-post'],
   props: {
     post: {
       type: Object,

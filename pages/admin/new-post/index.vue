@@ -9,13 +9,15 @@
 </template>
 
 <script>
-import axios from 'axios'
 export default {
   methods: {
-    savePost(postData) {
-      this.$store.disptach('addPost', postData).then(() => {
+    async savePost(postData) {
+      try {
+        await this.$store.dispatch('addPost', postData)
         this.$router.push('/admin')
-      })
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

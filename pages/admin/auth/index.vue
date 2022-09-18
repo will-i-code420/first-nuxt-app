@@ -2,15 +2,15 @@
   <v-container>
     <v-row justify="center" align="center">
       <v-col cols="16" sm="12" md="10" class="new-post-page">
-        <v-form>
+        <v-form @submit.prevent="login">
           <v-container>
             <v-row>
               <v-col>
-                <v-text-field type="email" v-model="email" required>
+                <v-text-field type="email" v-model="loginForm.email" required>
                 </v-text-field>
-                <v-text-field type="password" v-model="password" required>
+                <v-text-field type="password" v-model="loginForm.password" required>
                 </v-text-field>
-                <BaseButton color="primary" @click="login" >
+                <BaseButton color="primary" type="submit" >
                   Login
                 </BaseButton>
               </v-col>
@@ -26,13 +26,20 @@
 export default {
   data () {
     return {
-      email: '',
-      password: ''
+      loginForm: {
+        email: '',
+        password: ''
+      }
     }
   },
   methods: {
-    login () {
-      console.log(`logging ${this.email} in using ${this.password} as password`)
+    async login () {
+      try {
+        await this.$store.dispatch('login', this.loginForm)
+        this.$router.push('/admin')
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
 }

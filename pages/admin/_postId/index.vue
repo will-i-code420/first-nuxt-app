@@ -10,16 +10,20 @@
 
 <script>
 export default {
-  asyncData(context) {
-    return this.$axios.$get(`/posts/${context.params.postId}.json`).then(data => {
+  async asyncData(context) {
+    try {
+      const data = await context.app.$axios.$get(`/posts/${context.params.postId}.json`)
       return {
         loadedPost: {id: context.params.postId, ...data}
       }
-    }).catch(e => context.error(e))
+    } catch (e) {
+      console.log(e)
+      context.error(e)
+    }
   },
   methods: {
     editPost(postData) {
-      this.$store.disptach('editPost', postData).then(() => {
+      this.$store.dispatch('editPost', postData).then(() => {
         this.$router.push('/admin')
       })
     }

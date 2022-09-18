@@ -1,10 +1,10 @@
 import Vuex from 'vuex'
-import axios from 'axios'
 
 const createStore = () => {
   return new Vuex.Store({
     state: {
-      loadedPosts: []
+      loadedPosts: [],
+      user: {}
     },
     mutations: {
       setPosts(state,posts) {
@@ -15,42 +15,65 @@ const createStore = () => {
       },
       editPost(state, editedPost) {
         const postIdx = state.loadedPosts.findIndex(post => post.id === editedPost.id)
-        state.loadedPosts[postIdx] = editPost
+        state.loadedPosts[postIdx] = editedPost
+      },
+      login(state, user) {
+        state.user = user
       }
     },
     actions: {
-      nuxtServerInit({commit}, context) {
-        return context.app.$axios.$get(`/posts.json`).then(data => {
+      async nuxtServerInit({ commit }, context) {
+        try {
+          const data = await context.app.$axios.$get(`/posts.json`)
           const posts = []
           for (const key in data) {
             posts.push({ id: key, ...data[key] })
           }
           commit('setPosts', posts)
-        }).catch(e => context.error(e))
+        } catch (e) {
+          console.log(e)
+          context.error(e)
+        }
       },
-      setPosts({commit}, posts) {
+      setPosts({ commit }, posts) {
         commit('setPosts', posts)
       },
-      addPost({commit}, postData) {
-          return axios.post(`${process.env.baseUrl}/posts.json`, postData).then(res => {
-            console.log(res)
-            commit('addPost', {id: res.data.name, ...postData})
-          }).catch(e => {
-            console.log(e)
-          })
-      },
-      editPost({commit}, postData) {
-        return axios.put(`${process.env.baseUrl}/posts/${postData.id}.json`, postData).then(res => {
-          console.log(res)
-          commit('editPost', postData)
-        }).catch(e => {
+      async addPost({ commit, state }, postData) {
+        try {
+          const data = await this.$axios.$post(`${process.env.baseURL}/posts.json?auth=${state.user.idToken}`, postData)
+          commit('addPost', {id: data.name, ...postData})
+        } catch (e) {
           console.log(e)
-        })
+        }
+      },
+      async editPost({ commit, state }, postData) {
+        try {
+          const res = await this.$axios.$put(`${process.env.baseURL}/posts/${postData.id}.json?auth=${state.user.idToken}`, postData)
+          commit('editPost', postData)
+        } catch (e) {
+          console.log(e)
+        }
+      },
+      async login({ commit }, loginData) {
+        try {
+          const payload = {
+            email: loginData.email,
+            password: loginData.password,
+            returnSecureToken: true
+          }
+          const res = await this.$axios.post(process.env.loginURL, payload)
+          commit('login', res.data)
+        } catch (e) {
+          console.log(e.response.data.error.message)
+        }
       }
     },
     getters: {
       loadedPosts(state) {
         return state.loadedPosts
+      },
+      isLoggedIn(state) {
+        return !state.user ? false : true
       }
     }
   })

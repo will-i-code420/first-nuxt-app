@@ -25,23 +25,6 @@ export default {
   },
   data() {
     return {
-      clipped: false,
-      drawer: false,
-      items: [
-        {
-          icon: "mdi-apps",
-          title: "Home",
-          to: "/",
-        },
-        {
-          icon: "mdi-chart-bubble",
-          title: "About",
-          to: "/about",
-        },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
       title: "Tech News",
     };
   }

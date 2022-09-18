@@ -9,6 +9,8 @@
 <script>
 export default {
   name: "SinglePostPage",
+  /*
+  find out why this errors out after switching to async/await
   head() {
     return {
       title: loadedPost.title,
@@ -17,12 +19,18 @@ export default {
       ]
     }
   },
-  asyncData(context) {
-    return this.$axios.$get(`/posts/${context.params.id}.json`).then(data => {
+  */
+  async asyncData(context) {
+    try {
+      const data = await context.app.$axios.$get(`/posts/${context.params.id}.json`)
+      console.log(data)
       return {
         loadedPost: data
       }
-    }).catch(e => context.error(e))
+    } catch (e) {
+      console.log(e)
+      context.error(e)
+    }
   }
 }
 </script>

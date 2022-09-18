@@ -51,6 +51,8 @@ export default {
   ],
   axios: {
     baseURL: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com',
+    registerURL: process.env.REGISTER_URL || 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKFYyXAxptSFw4IClWapdsXpWGPrZ-LlI',
+    loginURL: process.env.LOGIN_URL || 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAKFYyXAxptSFw4IClWapdsXpWGPrZ-LlI',
     credentials: false
   },
   router: {
@@ -58,7 +60,9 @@ export default {
   },
 
   env: {
-    baseUrl: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com'
+    baseURL: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com',
+    registerURL: process.env.REGISTER_URL || 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKFYyXAxptSFw4IClWapdsXpWGPrZ-LlI',
+    loginURL: process.env.LOGIN_URL || 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAKFYyXAxptSFw4IClWapdsXpWGPrZ-LlI'
   },
 
   router: {
