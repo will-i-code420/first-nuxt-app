@@ -49,21 +49,22 @@ export default {
   modules: [
     '@nuxtjs/axios'
   ],
-  axios: {
-    baseURL: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com',
-    registerURL: process.env.REGISTER_URL || 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKFYyXAxptSFw4IClWapdsXpWGPrZ-LlI',
-    loginURL: process.env.LOGIN_URL || 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAKFYyXAxptSFw4IClWapdsXpWGPrZ-LlI',
-    credentials: false
-  },
+
   router: {
     middleware: 'log'
   },
 
-  env: {
-    baseURL: process.env.BASE_URL || 'https://first-nuxt-app-a32f8-default-rtdb.firebaseio.com',
-    registerURL: process.env.REGISTER_URL || 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAKFYyXAxptSFw4IClWapdsXpWGPrZ-LlI',
-    loginURL: process.env.LOGIN_URL || 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAKFYyXAxptSFw4IClWapdsXpWGPrZ-LlI'
+  publicRuntimeConfig: {
+    axios: {
+      baseURL: process.env.FB_DATABASE_URL,
+      credentials: false
+    },
+    baseURL: process.env.FB_DATABASE_URL,
+    registerURL: process.env.FB_REGISTER_URL + process.env.FB_WEBAPI_KEY,
+    loginURL: process.env.FB_LOGIN_URL + process.env.FB_WEBAPI_KEY
   },
+
+  privateRuntimeConfig: {},
 
   router: {
     extendRoutes(routes,resolve) {

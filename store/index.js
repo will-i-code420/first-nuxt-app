@@ -40,7 +40,7 @@ const createStore = () => {
       },
       async addPost({ commit, state }, postData) {
         try {
-          const data = await this.$axios.$post(`${process.env.baseURL}/posts.json?auth=${state.user.idToken}`, postData)
+          const data = await this.$axios.$post(`${this.$config.baseURL}/posts.json?auth=${state.user.idToken}`, postData)
           commit('addPost', {id: data.name, ...postData})
         } catch (e) {
           console.log(e)
@@ -48,7 +48,7 @@ const createStore = () => {
       },
       async editPost({ commit, state }, postData) {
         try {
-          const res = await this.$axios.$put(`${process.env.baseURL}/posts/${postData.id}.json?auth=${state.user.idToken}`, postData)
+          const res = await this.$axios.$put(`${this.$config.baseURL}/posts/${postData.id}.json?auth=${state.user.idToken}`, postData)
           commit('editPost', postData)
         } catch (e) {
           console.log(e)
@@ -61,7 +61,7 @@ const createStore = () => {
             password: loginData.password,
             returnSecureToken: true
           }
-          const res = await this.$axios.post(process.env.loginURL, payload)
+          const res = await this.$axios.post(this.$config.loginURL, payload)
           commit('login', res.data)
         } catch (e) {
           console.log(e.response.data.error.message)
