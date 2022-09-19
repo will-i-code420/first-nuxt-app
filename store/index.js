@@ -73,7 +73,7 @@ const createStore = () => {
         return state.loadedPosts
       },
       isLoggedIn(state) {
-        return !state.user ? false : true
+        return state.user.idToken != null
       }
     }
   })

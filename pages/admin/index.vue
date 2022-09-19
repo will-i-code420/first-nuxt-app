@@ -25,6 +25,7 @@
 <script>
 export default {
   name: "AdminPage",
+  middleware: ['auth'],
   computed: {
     loadedPosts() {
       return this.$store.getters.loadedPosts
