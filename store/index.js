@@ -19,6 +19,9 @@ const createStore = () => {
       },
       login(state, user) {
         state.user = user
+      },
+      clearUser(state) {
+        state.user = {}
       }
     },
     actions: {
@@ -54,18 +57,24 @@ const createStore = () => {
           console.log(e)
         }
       },
-      async login({ commit }, loginData) {
+      async login({ commit, dispatch }, loginData) {
         try {
           const payload = {
             email: loginData.email,
             password: loginData.password,
             returnSecureToken: true
           }
-          const res = await this.$axios.post(this.$config.loginURL, payload)
-          commit('login', res.data)
+          const data = await this.$axios.$post(this.$config.loginURL, payload)
+          commit('login', data)
+          dispatch('setLogoutTimer', data.expiresIn * 1000)
         } catch (e) {
           console.log(e.response.data.error.message)
         }
+      },
+      setLogoutTimer({ commit }, duration) {
+        setTimeout(() => {
+          commit('clearUser')
+        }, duration)
       }
     },
     getters: {
