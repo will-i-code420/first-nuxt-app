@@ -1,4 +1,7 @@
 import Vuex from 'vuex'
+import Cookie from 'js-cookie'
+
+// need to add error component/state/logic now that auth is enabled
 
 const createStore = () => {
   return new Vuex.Store({
@@ -57,7 +60,7 @@ const createStore = () => {
           console.log(e)
         }
       },
-      async login({ commit, dispatch }, loginData) {
+      async login({ commit }, loginData) {
         try {
           const payload = {
             email: loginData.email,
@@ -66,22 +69,35 @@ const createStore = () => {
           }
           const data = await this.$axios.$post(this.$config.loginURL, payload)
           localStorage.setItem('token', data.idToken)
-          localStorage.setItem('tokenExpiration', new Date().getTime() + data.expiresIn * 1000)
+          localStorage.setItem('tokenExpiration', new Date().getTime() + +data.expiresIn * 1000)
           commit('setToken', data.idToken)
-          dispatch('setTokenTimer', data.expiresIn * 1000)
+          Cookie.set('jwt', data.idToken)
+          Cookie.set('jwtExpiration', new Date().getTime() + +data.expiresIn * 1000)
         } catch (e) {
           console.log(e.response.data.error.message)
         }
       },
-      setTokenTimer({ commit }, duration) {
-        setTimeout(() => {
+      initAuth({ commit, dispatch }, req) {
+        let token
+        let tokenExpiration
+        if (req) {
+          if (!req.headers.cookie) return
+          const tokenCookie = req.headers.cookie.split(';').find(cookie => {
+            cookie.trim().startsWith('jwt=')
+          })
+          if (!tokenCookie) return
+          token = tokenCookie.split('=')[1]
+          tokenExpiration = req.headers.cookie.split(';').find(cookie => {
+            cookie.trim().startsWith('jwtExpiration=')
+          }).split('=')[1]
+        } else {
+          token = localStorage.getItem('token')
+          tokenExpiration = localStorage.getItem('tokenExpiration')
+        }
+        if (new Date().getTime() > +tokenExpiration || !token) {
           commit('clearToken')
-        }, duration)
-      },
-      initAuth({ commit, dispatch }) {
-        const token = localStorage.getItem('token')
-        const tokenExpiration = localStorage.getItem('tokenExpiration')
-        if (new Date().getTime() > +tokenExpiration || !token) return
+          return
+        }
         commit('setToken', token)
         dispatch('setTokenTimer', +tokenExpiration - new Date().getTime())
       }
