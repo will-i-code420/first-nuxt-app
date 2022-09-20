@@ -70,14 +70,18 @@ const createStore = () => {
           const data = await this.$axios.$post(this.$config.loginURL, payload)
           localStorage.setItem('token', data.idToken)
           localStorage.setItem('tokenExpiration', new Date().getTime() + +data.expiresIn * 1000)
-          commit('setToken', data.idToken)
           Cookie.set('jwt', data.idToken)
           Cookie.set('jwtExpiration', new Date().getTime() + +data.expiresIn * 1000)
+          commit('setToken', data.idToken)
         } catch (e) {
           console.log(e.response.data.error.message)
         }
       },
       logout({ commit }) {
+        Cookie.remove('jwt')
+        Cookie.remove('jwtExpiration')
+        localStorage.removeItem('token')
+        localStorage.removeItem('tokenExpiration')
         commit('clearToken')
       },
       initAuth({ commit, dispatch }, req) {
@@ -98,11 +102,10 @@ const createStore = () => {
           tokenExpiration = localStorage.getItem('tokenExpiration')
         }
         if (new Date().getTime() > +tokenExpiration || !token) {
-          commit('clearToken')
+          dispatch('logout')
           return
         }
         commit('setToken', token)
-        dispatch('setTokenTimer', +tokenExpiration - new Date().getTime())
       }
     },
     getters: {
