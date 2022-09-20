@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@nuxtjs/vuetify": "^1.12.3",
-    "eslint": "^8.20.0",
+    "eslint": "^8.23.1",
     "eslint-plugin-vue": "^9.3.0"
   }
 }
