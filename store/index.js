@@ -77,6 +77,9 @@ const createStore = () => {
           console.log(e.response.data.error.message)
         }
       },
+      logout({ commit }) {
+        commit('clearToken')
+      },
       initAuth({ commit, dispatch }, req) {
         let token
         let tokenExpiration

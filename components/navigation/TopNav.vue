@@ -20,6 +20,12 @@
         mdi-cog
       </v-icon>
     </v-btn>
+    <v-btn v-if="isAuth" class="ma-2" nuxt @click="logout">
+      <span>Logout</span>
+      <v-icon right aria-label="Admin" role="img" aria-hidden="false">
+        mdi-log-out
+      </v-icon>
+    </v-btn>
     <v-form>
       <v-container>
         <v-row>
@@ -46,6 +52,11 @@ export default {
   props: {
     title: String
   },
+  computed: {
+    isAuth() {
+      return this.$store.getters.isAuth
+    }
+  }
   data() {
     return {
       searchInput: ''
@@ -54,6 +65,10 @@ export default {
   methods: {
     searchPosts() {
       console.log(this.searchInput)
+    },
+    async logout() {
+      await this.$store.dispatch('logout')
+      this.$router.push('/')
     }
   }
 }
