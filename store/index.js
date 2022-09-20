@@ -80,8 +80,10 @@ const createStore = () => {
       logout({ commit }) {
         Cookie.remove('jwt')
         Cookie.remove('jwtExpiration')
-        localStorage.removeItem('token')
-        localStorage.removeItem('tokenExpiration')
+        if (process.client) {
+          localStorage.removeItem('token')
+          localStorage.removeItem('tokenExpiration')
+        }
         commit('clearToken')
       },
       initAuth({ commit, dispatch }, req) {
