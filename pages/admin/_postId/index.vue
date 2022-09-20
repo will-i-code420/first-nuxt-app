@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  middleware: ['auth'],
+  middleware: ['check-auth', 'auth'],
   async asyncData(context) {
     try {
       const data = await context.app.$axios.$get(`/posts/${context.params.postId}.json`)

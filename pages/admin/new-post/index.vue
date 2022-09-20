@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  middleware: ['auth'],
+  middleware: ['check-auth', 'auth'],
   methods: {
     async savePost(postData) {
       try {

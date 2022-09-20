@@ -4,7 +4,7 @@ const createStore = () => {
   return new Vuex.Store({
     state: {
       loadedPosts: [],
-      user: {}
+      token: null
     },
     mutations: {
       setPosts(state,posts) {
@@ -17,11 +17,11 @@ const createStore = () => {
         const postIdx = state.loadedPosts.findIndex(post => post.id === editedPost.id)
         state.loadedPosts[postIdx] = editedPost
       },
-      login(state, user) {
-        state.user = user
+      setToken(state, token) {
+        state.token = token
       },
-      clearUser(state) {
-        state.user = {}
+      clearToken(state) {
+        state.token = null
       }
     },
     actions: {
@@ -43,7 +43,7 @@ const createStore = () => {
       },
       async addPost({ commit, state }, postData) {
         try {
-          const data = await this.$axios.$post(`${this.$config.baseURL}/posts.json?auth=${state.user.idToken}`, postData)
+          const data = await this.$axios.$post(`${this.$config.baseURL}/posts.json?auth=${state.token}`, postData)
           commit('addPost', {id: data.name, ...postData})
         } catch (e) {
           console.log(e)
@@ -51,7 +51,7 @@ const createStore = () => {
       },
       async editPost({ commit, state }, postData) {
         try {
-          const res = await this.$axios.$put(`${this.$config.baseURL}/posts/${postData.id}.json?auth=${state.user.idToken}`, postData)
+          const res = await this.$axios.$put(`${this.$config.baseURL}/posts/${postData.id}.json?auth=${state.token}`, postData)
           commit('editPost', postData)
         } catch (e) {
           console.log(e)
@@ -65,24 +65,33 @@ const createStore = () => {
             returnSecureToken: true
           }
           const data = await this.$axios.$post(this.$config.loginURL, payload)
-          commit('login', data)
-          dispatch('setLogoutTimer', data.expiresIn * 1000)
+          localStorage.setItem('token', data.idToken)
+          localStorage.setItem('tokenExpiration', new Date().getTime() + data.expiresIn * 1000)
+          commit('setToken', data.idToken)
+          dispatch('setTokenTimer', data.expiresIn * 1000)
         } catch (e) {
           console.log(e.response.data.error.message)
         }
       },
-      setLogoutTimer({ commit }, duration) {
+      setTokenTimer({ commit }, duration) {
         setTimeout(() => {
-          commit('clearUser')
+          commit('clearToken')
         }, duration)
+      },
+      initAuth({ commit, dispatch }) {
+        const token = localStorage.getItem('token')
+        const tokenExpiration = localStorage.getItem('tokenExpiration')
+        if (new Date().getTime() > +tokenExpiration || !token) return
+        commit('setToken', token)
+        dispatch('setTokenTimer', +tokenExpiration - new Date().getTime())
       }
     },
     getters: {
       loadedPosts(state) {
         return state.loadedPosts
       },
-      isLoggedIn(state) {
-        return state.user.idToken != null
+      isAuth(state) {
+        return state.token != null
       }
     }
   })
