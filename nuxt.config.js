@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+const bodyParser = require('body-parser')
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -97,6 +98,11 @@ export default {
       }
     }
   },
+
+  serverMiddleware: [
+    bodyParser.json(),
+    '~/server/api'
+  ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
